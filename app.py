@@ -2,9 +2,9 @@ import requests
 import api_key
 
 
-def get_location(location = input("Provide your city,state without a space: ")):
+def get_location(location = input("Welcome to the Running Attire App.\nProvide your city,state without a space: ")):
 
-    # use regex to check location
+    # check location for validity
 
     url = f'https://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key.key}'
 
@@ -32,25 +32,53 @@ def get_units(units_choice = input("Do you prefer to see the weather in imperial
 
 url = get_units()
 
-
+# API variables
 response = requests.get(url)
 content_type = response.headers.get('Content-Type')
 request = response.request
 json_data = response.json()
 
+# weather variable queries
 tempF = json_data['main']['temp']
 temp_feel = json_data['main']['feels_like']
 rain_or_shine = json_data['clouds']['all']
-precip = json_data['weather'][0]['main']
+precip = json_data['weather'][0]['main'].lower()
 turbulence = json_data['wind']['speed']
 humidity = json_data['main']['humidity']
 
-print(f'The current temperature is {tempF}F')
-print(f'It feels like {temp_feel}F')
+print('')
+print(f'The current temperature is {tempF}F.')
+print(f'It feels like {temp_feel}F.')
+
+if tempF > 69:
+    print("It's pretty warm. You'll want to wear minimal clothing like shorts and a tank top on your run.\n")
+elif tempF > 44:
+    print("Not too hot, not too cold. You can probably wear shorts and a t-shirt on your run, but you might start with a light jacket on top.\n")
+elif tempF > 29:
+    print("Chilly. You'll want to wear pants, a long sleeved shirt, ear/nose/mouth protection (buff/hat/headband), and gloves. You might supplement this with a jacket.\n")
+elif tempF > 14:
+    print("Brr. Wear warm pants, a jacket/hoodie, ear/nose/mouth protection (buff/hat/headband), and gloves.\n")
+else:
+    print("""*shiver* It's pretty cold. If you must run outdoors, wear pants, a thicker jacket/hoodie, ear/nose/mouth protection (buff/hat/headband), and gloves.
+    Make sure none of your skin is exposed around your ankles/wrists/face, or you could get frostbite.\n""")
+
 print(f'It is {rain_or_shine}% cloudy')
-print(f'There appears to be {precip.lower()}')
+print('It is always wise to wear sunscreen when running outdoors. A ball cap adds another layer of protection.')
+if rain_or_shine < 50:
+    print("It's pretty sunny. You might want to wear sunglasses.")
+
+print(f'There appears to be {precip}')
+if rain_or_shine > 75:
+    if tempF < 60:
+        print("You might consider a jacket. It's looking stormy and cool.\n")
+
+
 print(f'The wind is blowing at {turbulence}mph')
 print(f'The humidity is {humidity}%')
+if humidity > 50:
+    if tempF > 70:
+        print("Drink lots of water today! It's hot and humid!")
+
 
 ### running attire app wireframe ###
 
