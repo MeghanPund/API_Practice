@@ -1,23 +1,63 @@
 import requests
 import api_key
 
-url = f"https://api.openweathermap.org/data/2.5/weather?q=Louisville,kentucky&appid={api_key.key}&units=imperial"
+
+def get_location(location = input("Provide your city,state without a space: ")):
+
+    # use regex to check location
+
+    url = f'https://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key.key}'
+
+    return url
+
+url = get_location()  
+
+def get_units(units_choice = input("Do you prefer to see the weather in imperial or metric units? Type 'imperial' or 'metric': ")):
+
+    global url
+    imperial = '&units=imperial'
+    metric = '&units=metric'
+
+    if units_choice == "imperial":
+        print("We'll show you the weather in imperial units.")
+        url += imperial
+    elif units_choice == "metric":
+        print("We'll show you the weather in metric units.")
+        url += metric
+    else:
+        print("Incorrect input. We'll show you the weather in imperial units.")
+        url += imperial
+
+    return url
+
+url = get_units()
+
+
 response = requests.get(url)
 content_type = response.headers.get('Content-Type')
 request = response.request
 json_data = response.json()
 
 tempF = json_data['main']['temp']
-turbulence = json_data['wind']['speed']
+temp_feel = json_data['main']['feels_like']
 rain_or_shine = json_data['clouds']['all']
+precip = json_data['weather'][0]['main']
+turbulence = json_data['wind']['speed']
+humidity = json_data['main']['humidity']
 
-print(tempF)
-print(turbulence)
-print(rain_or_shine)
+print(f'The current temperature is {tempF}F')
+print(f'It feels like {temp_feel}F')
+print(f'It is {rain_or_shine}% cloudy')
+print(f'There appears to be {precip.lower()}')
+print(f'The wind is blowing at {turbulence}mph')
+print(f'The humidity is {humidity}%')
 
 ### running attire app wireframe ###
 
+## welcome user
+
 ## allow user to input US zipcode OR city, state and append to URL
+## ask user if they prefer metric or imperial - do Americans know what this is? - and append to URL
 
 ## target all weather variables that noticeably affect run conditions
     # temp
