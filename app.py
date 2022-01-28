@@ -2,7 +2,7 @@ import requests
 import api_key
 
 
-def get_location(city=input("Welcome to the Running Attire App.\nProvide your city: "), state=input("And your state: ")):
+def get_location(city=input("Welcome to the Running Attire App.\nProvide your city: "), state=input("And your state, spelled in full: ")):
 
     # check location for validity
     if state:
