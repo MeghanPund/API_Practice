@@ -2,10 +2,10 @@ import requests
 import api_key
 
 
-def get_location(location = input("Welcome to the Running Attire App.\nProvide your city,state without a space: ")):
+def get_location(location = input("Welcome to the Running Attire App.\nProvide your city,state: ")):
 
     # check location for validity
-
+    location.replace(" ", "")
     url = f'https://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key.key}'
 
     return url
@@ -39,6 +39,7 @@ request = response.request
 json_data = response.json()
 
 # weather variable queries
+location = url.split("=")[1].split("&")[0].title()
 tempF = json_data['main']['temp']
 temp_feel = json_data['main']['feels_like']
 rain_or_shine = json_data['clouds']['all']
@@ -47,7 +48,7 @@ turbulence = json_data['wind']['speed']
 humidity = json_data['main']['humidity']
 
 print('')
-print(f'The current temperature is {tempF}F.')
+print(f'The current temperature in {location} is {tempF}F.')
 print(f'It feels like {temp_feel}F.')
 
 if tempF > 69:
@@ -67,7 +68,10 @@ print('It is always wise to wear sunscreen when running outdoors. A ball cap add
 if rain_or_shine < 50:
     print("It's pretty sunny. You might want to wear sunglasses.")
 
-print(f'There appears to be {precip}')
+if precip.endswith('s'):
+    print(f'There appear to be {precip}.')
+else:
+    print(f'There appears to be {precip}.')
 if rain_or_shine > 75:
     if tempF < 60:
         print("You might consider a jacket. It's looking stormy and cool.\n")
