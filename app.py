@@ -2,10 +2,14 @@ import requests
 import api_key
 
 
-def get_location(location = input("Welcome to the Running Attire App.\nProvide your city,state: ")):
+def get_location(city=input("Welcome to the Running Attire App.\nProvide your city: "), state=input("And your state: ")):
 
     # check location for validity
-    location.replace(" ", "")
+    if state:
+        location = (f'{city.strip()},{state.strip()}')
+    else:
+        location = city.strip()
+
     url = f'https://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key.key}'
 
     return url
@@ -39,7 +43,7 @@ request = response.request
 json_data = response.json()
 
 # weather variable queries
-location = url.split("=")[1].split("&")[0].title()
+location = url.split("=")[1].split("&")[0].title().replace(',', ', ')
 units = url.split("80")[1].split("&units=")[1]
 temp = json_data['main']['temp']
 tempF = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={location.strip()}&appid={api_key.key}&units=imperial').json()['main']['temp']
