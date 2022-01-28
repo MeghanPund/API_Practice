@@ -40,7 +40,9 @@ json_data = response.json()
 
 # weather variable queries
 location = url.split("=")[1].split("&")[0].title()
-tempF = json_data['main']['temp']
+units = url.split("80")[1].split("&units=")[1]
+temp = json_data['main']['temp']
+tempF = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={location.strip()}&appid={api_key.key}&units=imperial').json()['main']['temp']
 temp_feel = json_data['main']['feels_like']
 rain_or_shine = json_data['clouds']['all']
 precip = json_data['weather'][0]['main'].lower()
@@ -48,8 +50,7 @@ turbulence = json_data['wind']['speed']
 humidity = json_data['main']['humidity']
 
 print('')
-print(f'The current temperature in {location} is {tempF}F.')
-print(f'It feels like {temp_feel}F.')
+print(f'The current temperature in {location} is {temp}. It feels like {temp_feel}.')
 
 if tempF > 69:
     print("It's pretty warm. You'll want to wear minimal clothing like shorts and a tank top on your run.\n")
@@ -60,24 +61,28 @@ elif tempF > 29:
 elif tempF > 14:
     print("Brr. Wear warm pants, a jacket/hoodie, ear/nose/mouth protection (buff/hat/headband), and gloves.\n")
 else:
-    print("""*shiver* It's pretty cold. If you must run outdoors, wear pants, a thicker jacket/hoodie, ear/nose/mouth protection (buff/hat/headband), and gloves.
+    print("""*shiver* It's pretty cold. If you must run outdoors, wear pants, a thick jacket, ear/nose/mouth protection (buff/hat/headband), and gloves.
     Make sure none of your skin is exposed around your ankles/wrists/face, or you could get frostbite.\n""")
 
 print(f'It is {rain_or_shine}% cloudy')
 print('It is always wise to wear sunscreen when running outdoors. A ball cap adds another layer of protection.')
-if rain_or_shine < 50:
+if rain_or_shine < 70:
     print("It's pretty sunny. You might want to wear sunglasses.")
 
 if precip.endswith('s'):
     print(f'There appear to be {precip}.')
 else:
     print(f'There appears to be {precip}.')
+
 if rain_or_shine > 75:
     if tempF < 60:
         print("You might consider a jacket. It's looking stormy and cool.\n")
 
+if units == "imperial":
+    print(f'The wind is blowing at {turbulence}mph')
+else:
+    print(f'The wind is blowing at {turbulence}kph')
 
-print(f'The wind is blowing at {turbulence}mph')
 print(f'The humidity is {humidity}%')
 if humidity > 50:
     if tempF > 70:
