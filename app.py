@@ -1,6 +1,8 @@
 import requests
 import api_key
 
+# a comprehensive list that appears at the end of the program with what clothing to wear
+what_to_wear = []
 
 def get_location(city=input("Welcome to the Running Attire App.\nProvide your city: "), state=input("And your state, spelled in full: ")):
 
@@ -53,27 +55,35 @@ precip = json_data['weather'][0]['main'].lower()
 turbulence = json_data['wind']['speed']
 humidity = json_data['main']['humidity']
 
-print('')
-print(f'The current temperature in {location} is {temp}. It feels like {temp_feel}.')
+print(f'\nThe current temperature in {location} is {temp}. It feels like {temp_feel}.')
 
 if tempF > 69:
     print("It's pretty warm. You'll want to wear minimal clothing like shorts and a tank top on your run.\n")
+    what_to_wear.extend(('shorts', 'tank top',))
 elif tempF > 44:
     print("Not too hot, not too cold. You can probably wear shorts and a t-shirt on your run, but you might start with a light jacket on top.\n")
+    what_to_wear.extend(('shorts', 't-shirt', 'maybe: jacket',))
 elif tempF > 29:
     print("Chilly. You'll want to wear pants, a long sleeved shirt, ear/nose/mouth protection (buff/hat/headband), and gloves. You might supplement this with a jacket.\n")
+    what_to_wear.extend(('pants', 'long-sleeved shirt', 'buff/hat/headband', 'gloves', 'jacket',))
 elif tempF > 14:
-    print("Brr. Wear warm pants, a jacket/hoodie, ear/nose/mouth protection (buff/hat/headband), and gloves.\n")
+    print("Brr. Wear warm pants, a jacket/hoodie, a long-sleeved shirt, ear/nose/mouth protection (buff/hat/headband), and gloves.\n")
+    what_to_wear.extend(('pants', 'long-sleeved shirt', 'buff/hat/headband', 'gloves', 'jacket',))
 else:
     print("""*shiver* It's pretty cold. If you must run outdoors, wear pants, a thick jacket, ear/nose/mouth protection (buff/hat/headband), and gloves.
     Make sure none of your skin is exposed around your ankles/wrists/face, or you could get frostbite.\n""")
+    what_to_wear.extend(('pants', 'long-sleeved shirt', 'buff/hat/headband', 'gloves', 'jacket', 'potentially wear extra layers',))
 
 print(f'It is {rain_or_shine}% cloudy')
 print('It is always wise to wear sunscreen when running outdoors. A ball cap adds another layer of protection.')
+what_to_wear.extend(('sunscreen',))
 if rain_or_shine < 70:
     print("It's pretty sunny. You might want to wear sunglasses.")
+    what_to_wear.extend(('maybe: sunglasses', 'ballcap'))
 
-if precip.endswith('s'):
+if precip == "clear":
+    print(f'It appears to be {precip}.')
+elif precip.endswith('s'):
     print(f'There appear to be {precip}.')
 else:
     print(f'There appears to be {precip}.')
@@ -81,6 +91,7 @@ else:
 if rain_or_shine > 75:
     if tempF < 60:
         print("You might consider a jacket. It's looking stormy and cool.\n")
+        what_to_wear.extend(('maybe: jacket'))
 
 if units == "imperial":
     print(f'The wind is blowing at {turbulence}mph')
@@ -91,6 +102,8 @@ print(f'The humidity is {humidity}%')
 if humidity > 50:
     if tempF > 70:
         print("Drink lots of water today! It's hot and humid!")
+
+print(what_to_wear)
 
 
 ### running attire app wireframe ###
