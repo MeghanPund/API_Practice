@@ -5,8 +5,8 @@ import api_key
 what_to_wear = []
 
 def get_location(city=input("Welcome to the Running Attire App.\nProvide your city: "), state=input("And your state, spelled in full: ")):
-
-    # check location for validity
+    
+    # check location for validity, translate state abbreviations to full names
     if state:
         location = (f'{city.strip()},{state.strip()}')
     else:
@@ -50,12 +50,12 @@ units = url.split("80")[1].split("&units=")[1]
 temp = json_data['main']['temp']
 tempF = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={location.strip()}&appid={api_key.key}&units=imperial').json()['main']['temp']
 temp_feel = json_data['main']['feels_like']
-rain_or_shine = json_data['clouds']['all']
+rain_chance = json_data['clouds']['all']
 precip = json_data['weather'][0]['main'].lower()
 turbulence = json_data['wind']['speed']
 humidity = json_data['main']['humidity']
-
-print(f'\nThe current temperature in {location} is {temp}. It feels like {temp_feel}.')
+print('~'*80)
+print(f'The current temperature in {location} is {temp}. It feels like {temp_feel}.')
 
 if tempF > 69:
     print("It's pretty warm. You'll want to wear minimal clothing like shorts and a tank top on your run.\n")
@@ -74,10 +74,10 @@ else:
     Make sure none of your skin is exposed around your ankles/wrists/face, or you could get frostbite.\n""")
     what_to_wear.extend(('pants', 'long-sleeved shirt', 'buff/hat/headband', 'gloves', 'jacket', 'potentially wear extra layers',))
 
-print(f'It is {rain_or_shine}% cloudy')
+print(f'It is {rain_chance}% cloudy')
 print('It is always wise to wear sunscreen when running outdoors. A ball cap adds another layer of protection.')
 what_to_wear.extend(('sunscreen',))
-if rain_or_shine < 70:
+if rain_chance < 70:
     print("It's pretty sunny. You might want to wear sunglasses.")
     what_to_wear.extend(('maybe: sunglasses', 'ballcap'))
 
@@ -88,7 +88,7 @@ elif precip.endswith('s'):
 else:
     print(f'There appears to be {precip}.')
 
-if rain_or_shine > 75:
+if rain_chance > 75:
     if tempF < 60:
         print("You might consider a jacket. It's looking stormy and cool.\n")
         what_to_wear.extend(('maybe: jacket'))
@@ -103,7 +103,10 @@ if humidity > 50:
     if tempF > 70:
         print("Drink lots of water today! It's hot and humid!")
 
-print(what_to_wear)
+print('~'*80)
+print('On your run, you should consider wearing:')
+for item in what_to_wear:
+    print(item)
 
 
 ### running attire app wireframe ###
