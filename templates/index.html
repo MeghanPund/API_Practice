@@ -6,14 +6,14 @@
     the weather data for a given location to return the appropriate clothes 
     a runner should wear when running outdoors.</h4>
 <p>The Running Attire app is built with the Python language, the Flask framework 
-    and its accompanying languages (Jinja2, etc), HTML, CSS, and JavaScript.</p>
+    and its accompanying languages (Jinja2, Werkzeug, etc), HTML, CSS, and JavaScript.</p>
 <div class="content">
     <h2>Get Your Suggested Run Attire</h2>
     <div class="form">
-        <form action="" method="POST">
-            <input type="text" name="location" id="city" value="City"><br>
+        <form action="/" method="POST">
+            <input type="text" name="city" id="city" value="City"><br>
             <label for="city">City</label><br>
-            <input type="text" name="location" id="state" value="State"><br>
+            <input type="text" name="state" id="state" value="State"><br>
             <label for="state">State or Country name, typed in full</label><br>
             <p>Which units do you prefer?</p>
             <input type="radio" id="metric" name="units" value="metric">
