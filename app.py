@@ -62,6 +62,7 @@ def analyze_weather():
     '“If it doesn\'t challenge you, it won\'t change you.” — Fred DeVito',
     '“The man who moves a mountain begins by carrying away small stones.” — Confucius',
     '“Someone who is busier than you is running right now.” — Nike',
+    '"Only those who risk going too far can possibly find out how far one can go." — T. S. Eliot.',
     ]
     quote = random.choice(quotes)
     
