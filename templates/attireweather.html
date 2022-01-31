@@ -1,9 +1,10 @@
 {% extends "layout.html" %}
-{% block title %}Your Suggested Run Attire for {{ location }}|| {{ super() }}{% endblock %}
+{% block title %}Your Suggested Run Attire for {{ location }} || {{ super() }}{% endblock %}
 
 {% block content %}
 
-<h3>The current temperature in {{ location }} is {{ temp }}. It feels like {{ temp_feel }}.</h3>
+{% if units == 'imperial' %}
+<h3>The current temperature in {{ location }} is {{ temp }}F. It feels like {{ temp_feel }}F.</h3>
     {% if tempF > 69 %}
         <p>It's pretty warm. You'll want to wear minimal clothing like shorts and a tank top on your run.</p>
     {% elif tempF > 44 %}
@@ -16,7 +17,22 @@
         <p>*shiver* It's pretty cold. If you must run outdoors, wear pants, a thick jacket, ear/nose/mouth protection (buff/hat/headband), and gloves.
         Make sure none of your skin is exposed around your ankles/wrists/face, or you could get frostbite.</p>
     {% endif %}
-
+{% endif %}
+{% if units == 'metric' %}
+<h3>The current temperature in {{ location }} is {{ temp }}C. It feels like {{ temp_feel }}C.</h3>
+    {% if tempF > 69 %}
+        <p>It's pretty warm. You'll want to wear minimal clothing like shorts and a tank top on your run.</p>
+    {% elif tempF > 44 %}
+        <p>Not too hot, not too cold. You can probably wear shorts and a t-shirt on your run, but you might start with a light jacket on top.</p>
+    {% elif tempF > 29 %}
+        <p>Chilly. You'll want to wear pants, a long sleeved shirt, ear/nose/mouth protection (buff/hat/headband), and gloves. You might supplement this with a jacket.</p>
+    {% elif tempF > 14 %}
+        <p>Brr. Wear warm pants, a jacket/hoodie, a long-sleeved shirt, ear/nose/mouth protection (buff/hat/headband), and gloves.</p>
+    {% else %}
+        <p>*shiver* It's pretty cold. If you must run outdoors, wear pants, a thick jacket, ear/nose/mouth protection (buff/hat/headband), and gloves.
+        Make sure none of your skin is exposed around your ankles/wrists/face, or you could get frostbite.</p>
+    {% endif %}
+{% endif %}
 <h3>It is {{ rain_chance }}% cloudy.</h3>
 <p>It is always wise to wear sunscreen when running outdoors. A ball cap adds another layer of protection.</p>
     {% if rain_chance < 70 %}
@@ -26,9 +42,9 @@
     {% if precip == "clear" %}
         <p>It appears to be {{ precip }}.</p>
     {% elif precip.endswith('s') %}
-        <p>There appear to be { precip }.</p>
+        <p>There appear to be {{ precip }}.</p>
     {% else %}
-        <p>There appears to be { precip }.</p>
+        <p>There appears to be {{ precip }}.</p>
     {% endif %}
 
     {% if rain_chance > 75 %}
@@ -50,8 +66,8 @@
         {% endif %}
     {% endif %}
 
-<h4>On your run, you should consider wearing:</h4>
+<!-- <h4>On your run, you should consider wearing:</h4>
     {% for item in what_to_wear %}
         <li>{{ item }}</li>
-    {% endfor %}
+    {% endfor %} -->
 {% endblock %} 
