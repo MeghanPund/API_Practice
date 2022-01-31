@@ -1,5 +1,6 @@
 import api_key
 from flask import Flask, render_template, request, redirect, url_for
+import random
 import requests
 
 
@@ -29,7 +30,7 @@ def index():
             index.url += imperial
 
         # return f'location: {location}, units: {units}, API url: {index.url}'
-        return redirect(url_for('analyze_weather')), index.url
+        return redirect(url_for('analyze_weather'))
 
     else:
         return render_template("index.html")
@@ -54,8 +55,17 @@ def analyze_weather():
     precip = json_data['weather'][0]['main'].lower()
     turbulence = json_data['wind']['speed']
     humidity = json_data['main']['humidity']
+
+    quotes = ['“I don\'t run to add days to my life, I run to add life to my days.” — Ronald Rook',
+    '“Running is the greatest metaphor for life, because you get out of it what you put into it.” — Oprah Winfrey',
+    '“We are what we repeatedly do. Excellence, then, is not an act, but a habit.” — Aristotle',
+    '“If it doesn\'t challenge you, it won\'t change you.” — Fred DeVito',
+    '“The man who moves a mountain begins by carrying away small stones.” — Confucius',
+    '“Someone who is busier than you is running right now.” — Nike',
+    ]
+    quote = random.choice(quotes)
     
-    return render_template('attireweather.html', location=location, units=units, temp=temp, tempF=tempF, temp_feel=temp_feel, rain_chance=rain_chance, precip=precip, turbulence=turbulence, humidity=humidity)
+    return render_template('attireweather.html', quote=quote, location=location, units=units, temp=temp, tempF=tempF, temp_feel=temp_feel, rain_chance=rain_chance, precip=precip, turbulence=turbulence, humidity=humidity)
 
 if __name__=='__main__':
     app.run(debug=True, port=8080, host='0.0.0.0')
