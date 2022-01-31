@@ -1,4 +1,3 @@
-from fileinput import filename
 import api_key
 from flask import Flask, render_template, request, redirect, url_for
 import requests
