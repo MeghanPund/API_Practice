@@ -1,11 +1,9 @@
 import api_key
 from flask import Flask, render_template, request, redirect
-from flask_sqlalchemy import SQLAlchemy
 import requests
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-db = SQLAlchemy(app)
+
 
 # a comprehensive list that appears at the end of the program with what clothing to wear
 what_to_wear = []
@@ -17,44 +15,23 @@ def index():
         state = request.form.get("state")
         units = request.form.get("units")
         
+        # check location for validity, translate state abbreviations to full names
+        if state:
+            location = (f'{city.strip()},{state.strip()}')
+        else:
+            location = city.strip()
+        
+        global url
+        url = f'https://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key.key}'
+        
+        return f'location: {location}, units: {units}, API url: {url}'
+
     else:
         return render_template("index.html")
 
-    # check location for validity, translate state abbreviations to full names
-    if state:
-        location = (f'{city.strip()},{state.strip()}')
-    else:
-        location = city.strip()
 
-    url = f'https://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key.key}'
-
-    return f'{city}, {state}; You have selected: {units}. API url: {url}'
-
-
-if __name__=='__main__':
-    app.run(debug=True, port=8080, host='0.0.0.0')
-
-# def get_units(units_choice = input("Do you prefer to see the weather in imperial or metric units? Type 'imperial' or 'metric': ")):
-
-#     global url
-#     imperial = '&units=imperial'
-#     metric = '&units=metric'
-
-#     if units_choice == "imperial":
-#         print("We'll show you the weather in imperial units.")
-#         url += imperial
-#     elif units_choice == "metric":
-#         print("We'll show you the weather in metric units.")
-#         url += metric
-#     else:
-#         print("Incorrect input. We'll show you the weather in imperial units.")
-#         url += imperial
-
-#     return url
-
-# url = get_units()
-
-# def analyze_weather(url=get_units()):
+# @app.route('/attire_weather', methods=['POST', 'GET'])
+# def analyze_weather(url):
 #     # API variables
 #     response = requests.get(url)
 #     content_type = response.headers.get('Content-Type')
@@ -124,3 +101,8 @@ if __name__=='__main__':
 #     print('On your run, you should consider wearing:')
 #     for item in what_to_wear:
 #         print(item)
+
+
+
+if __name__=='__main__':
+    app.run(debug=True, port=8080, host='0.0.0.0')
