@@ -1,6 +1,8 @@
+from fileinput import filename
 import api_key
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 import requests
+
 
 app = Flask(__name__)
 
@@ -27,32 +29,33 @@ def index():
         else:
             index.url += imperial
 
-        return f'location: {location}, units: {units}, API url: {index.url}'
+        # return f'location: {location}, units: {units}, API url: {index.url}'
+        return redirect(url_for('analyze_weather'))
 
     else:
         return render_template("index.html")
 
 
-# @app.route('/attire_weather', methods=['POST', 'GET'])
-# def analyze_weather(url = index.url):
-#     # API variables
-#     response = requests.get(url)
-#     content_type = response.headers.get('Content-Type')
-#     request = response.request
-#     json_data = response.json()
+@app.route('/attireweather', methods=['POST', 'GET'])
+def analyze_weather():
+    # API variables
+    # response = requests.get(url)
+    # content_type = response.headers.get('Content-Type')
+    # request = response.request
+    # json_data = response.json()
 
-#     # weather variable queries
-#     location = url.split("=")[1].split("&")[0].title().replace(',', ', ')
-#     units = url.split("80")[1].split("&units=")[1]
-#     temp = json_data['main']['temp']
-#     tempF = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={location.strip()}&appid={api_key.key}&units=imperial').json()['main']['temp']
-#     temp_feel = json_data['main']['feels_like']
-#     rain_chance = json_data['clouds']['all']
-#     precip = json_data['weather'][0]['main'].lower()
-#     turbulence = json_data['wind']['speed']
-#     humidity = json_data['main']['humidity']
-
-#     return(render_template('attire_weather.html', url=index.url))
+    # # weather variable queries
+    # location = url.split("=")[1].split("&")[0].title().replace(',', ', ')
+    # units = url.split("80")[1].split("&units=")[1]
+    # temp = json_data['main']['temp']
+    # tempF = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={location.strip()}&appid={api_key.key}&units=imperial').json()['main']['temp']
+    # temp_feel = json_data['main']['feels_like']
+    # rain_chance = json_data['clouds']['all']
+    # precip = json_data['weather'][0]['main'].lower()
+    # turbulence = json_data['wind']['speed']
+    # humidity = json_data['main']['humidity']
+    
+    return render_template('attireweather.html')
 
 if __name__=='__main__':
     app.run(debug=True, port=8080, host='0.0.0.0')
