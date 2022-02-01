@@ -1,4 +1,20 @@
 body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
     background: #325eab;
     color: aliceblue;
+    margin: 1% 10% 0% 1%;
+}
+h1 {
+    text-shadow: 2px 2px gray;
+}
+h2 {
+    text-shadow: 2px 2px orangered;    
+}
+input {
+    margin: .5%
+}
+.quote {
+    font-style: italic;
+    font-size: 110%;
 }
