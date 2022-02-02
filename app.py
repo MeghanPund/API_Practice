@@ -1,3 +1,4 @@
+from distutils.log import error
 import api_key
 from flask import Flask, render_template, request, redirect, url_for
 import random
@@ -9,29 +10,33 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
+    error = None
     if request.method == 'POST':
-        city = request.form.get("city")
-        state = request.form.get("state")
-        units = request.form.get("units")
-        imperial = '&units=imperial'
-        metric = '&units=metric'
-        
-        # check location for validity, translate state abbreviations to full names
-        if state:
-            location = (f'{city.strip()},{state.strip()}')
+        if not request.form.get("city"):
+            error = "You need to enter a city name."
         else:
-            location = city.strip()
-        
-        index.url = f'https://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key.key}'
-        
-        if units == 'metric':
-            index.url += metric
-        else:
-            index.url += imperial
+            city = request.form.get("city")
+            state = request.form.get("state")
+            units = request.form.get("units")
+            imperial = '&units=imperial'
+            metric = '&units=metric'
 
-        # return f'location: {location}, units: {units}, API url: {index.url}'
-        return redirect(url_for('analyze_weather'))
+            # check location for validity, translate state abbreviations to full names
+            if state:
+                location = (f'{city.strip()},{state.strip()}')
+            else:
+                location = city.strip()
+            
+            index.url = f'https://api.openweathermap.org/data/2.5/weather?q={location}&appid={api_key.key}'
+            
+            if units == 'metric':
+                index.url += metric
+            else:
+                index.url += imperial
 
+            return redirect(url_for('analyze_weather'))
+        
+        return render_template("index.html", error=error)
     else:
         return render_template("index.html")
 
@@ -41,8 +46,6 @@ def analyze_weather():
     # API variables
     url = index.url
     response = requests.get(url)
-    content_type = response.headers.get('Content-Type')
-    request = response.request
     json_data = response.json()
 
     # weather variable queries
