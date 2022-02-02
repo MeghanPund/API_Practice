@@ -10,6 +10,9 @@
     <h2>Get Your Suggested Run Attire</h2>
     <div class="form">
         <form action="/" method="POST">
+            {% if error %}
+            <p class="error"><strong>Error: </strong>{{ error }}</p><br>
+            {% endif %}
             <input type="text" name="city" id="city"><br>
             <label for="city">City</label><br>
             <input type="text" name="state" id="state"><br>
@@ -20,7 +23,7 @@
             <input type="radio" id="imperial" name="units" value="imperial">
             <label for="imperial">imperial - miles, Fahrenheit</label><br>
 
-            <input type="submit" class="submit" value="Submit"><br>
+            <input type="submit" id="submit" class="submit" value="Submit"><br>
         </form>
     </div>
 </div> 
