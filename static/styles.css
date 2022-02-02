@@ -47,5 +47,6 @@ form > input:focus {
     font-size: 110%;
 }
 .error {
-    color: #F2CC8F;
+    font-size: 150%;
+    color: #D85531;
 }
