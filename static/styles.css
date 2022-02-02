@@ -1,20 +1,45 @@
 body {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
     text-align: center;
-    background: #325eab;
-    color: aliceblue;
+    background: #3D405B;
+    color: #F4F1DE;
     margin: 1% 10% 0% 1%;
 }
 h1 {
-    text-shadow: 2px 2px gray;
+    text-shadow: 2px 2px #81B29A;
 }
 h2 {
-    text-shadow: 2px 2px orangered;    
+    text-shadow: 2px 2px #E07A5F;    
+}
+h3 {
+    padding: .5%;
+    text-shadow: 2px 2px #626793;
+}
+p {
+    font-size: 110%;
 }
 input {
-    margin: .5%
+    margin: .5%;
+    padding: .35em;
+}
+form > input:focus {
+    border: 4px solid #E07A5F;
 }
 .quote {
     font-style: italic;
     font-size: 110%;
+}
+.jsButton {
+    color: #F4F1DE;
+    background-color: #81B29A;
+    padding: 1%;
+    border: 2px solid #F4F1DE;
+    border-radius: 30%;
+}
+.submit {
+    color: #F4F1DE;
+    background-color: #E07A5F;
+    padding: 1%;
+    border: 2px solid #F4F1DE;
+    border-radius: 30%;
 }
