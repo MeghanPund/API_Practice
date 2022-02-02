@@ -8,12 +8,9 @@ body {
 h1 {
     text-shadow: 2px 2px #81B29A;
 }
-h2 {
-    text-shadow: 2px 2px #E07A5F;    
-}
-h3 {
+h2, h3 {
     padding: .5%;
-    text-shadow: 2px 2px #626793;
+    text-shadow: 1px 1px #E07A5F;
 }
 p {
     font-size: 110%;
@@ -21,6 +18,8 @@ p {
 input {
     margin: .5%;
     padding: .35em;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    font-size: 110%;
 }
 form > input:focus {
     border: 4px solid #E07A5F;
@@ -35,6 +34,8 @@ form > input:focus {
     padding: 1%;
     border: 2px solid #F4F1DE;
     border-radius: 30%;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    font-size: 110%;
 }
 .submit {
     color: #F4F1DE;
@@ -42,4 +43,9 @@ form > input:focus {
     padding: 1%;
     border: 2px solid #F4F1DE;
     border-radius: 30%;
+    font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    font-size: 110%;
+}
+.error {
+    color: #F2CC8F;
 }
