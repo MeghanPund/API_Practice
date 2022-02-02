@@ -13,6 +13,8 @@ def index():
     if request.method == 'POST':
         if not request.form.get("city"):
             error = "You need to enter a city name."
+            
+            return render_template("index.html", error=error)
         else:
             city = request.form.get("city")
             state = request.form.get("state")
@@ -34,8 +36,6 @@ def index():
                 index.url += imperial
 
             return redirect(url_for('analyze_weather'))
-        
-        return render_template("index.html", error=error)
     else:
         return render_template("index.html")
 
