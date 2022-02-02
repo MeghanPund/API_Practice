@@ -13,7 +13,7 @@ def index():
     if request.method == 'POST':
         if not request.form.get("city"):
             error = "You need to enter a city name."
-            
+
             return render_template("index.html", error=error)
         else:
             city = request.form.get("city")
@@ -71,4 +71,4 @@ def analyze_weather():
     return render_template('attireweather.html', quote=quote, location=location, units=units, temp=temp, tempF=tempF, temp_feel=temp_feel, rain_chance=rain_chance, precip=precip, turbulence=turbulence, humidity=humidity)
 
 if __name__=='__main__':
-    app.run(debug=True, port=8080, host='0.0.0.0')
+    app.run(debug=True)
