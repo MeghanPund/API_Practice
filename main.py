@@ -50,12 +50,12 @@ def analyze_weather():
     # weather variable queries
     location = url.split("=")[1].split("&")[0].title().replace(',', ', ')
     units = url.split("80")[1].split("&units=")[1]
-    temp = json_data['main']['temp']
-    tempF = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={location.strip()}&appid={api_key.key}&units=imperial').json()['main']['temp']
-    temp_feel = json_data['main']['feels_like']
+    temp = round(json_data['main']['temp'])
+    tempF = round(requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={location.strip()}&appid={api_key.key}&units=imperial').json()['main']['temp'])
+    temp_feel = round(json_data['main']['feels_like'])
     rain_chance = json_data['clouds']['all']
     precip = json_data['weather'][0]['main'].lower()
-    turbulence = json_data['wind']['speed']
+    turbulence = round(json_data['wind']['speed'], 1)
     humidity = json_data['main']['humidity']
 
     quotes = ['“I don\'t run to add days to my life, I run to add life to my days.” — Ronald Rook',
