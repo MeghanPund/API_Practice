@@ -65,6 +65,10 @@ def analyze_weather():
     '“The man who moves a mountain begins by carrying away small stones.” — Confucius',
     '“Someone who is busier than you is running right now.” — Nike',
     '"Only those who risk going too far can possibly find out how far one can go." — T. S. Eliot.',
+    '“The will to win means nothing without the will to prepare.” — Juma Inkangaa, 1989 winner of the New York Marathon',
+    '“Fill the unforgiving minute with sixty seconds worth of distance run.” — Rudyard Kipling',
+    '“Forever is composed of nows.” — Emily Dickinson',
+    '“The miracle isn\'t that I finished. The miracle is that I had the courage to start.” ― John Bingham',
     ]
     quote = random.choice(quotes)
     
