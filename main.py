@@ -60,7 +60,7 @@ def analyze_weather():
 
     quotes = ['“I don\'t run to add days to my life, I run to add life to my days.” — Ronald Rook',
     '“Running is the greatest metaphor for life, because you get out of it what you put into it.” — Oprah Winfrey',
-    '“We are what we repeatedly do. Excellence, then, is not an act, but a habit.” — Aristotle',
+    '“We are what we repeatedly do. Excellence, then, is not an act, but a habit.” — Will Durant on Aristotle',
     '“If it doesn\'t challenge you, it won\'t change you.” — Fred DeVito',
     '“The man who moves a mountain begins by carrying away small stones.” — Confucius',
     '“Someone who is busier than you is running right now.” — Nike',
